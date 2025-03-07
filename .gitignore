@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar arquivos do Azurite
+AzuriteConfig
+__azurite_db_*.json
+__blobstorage__
+__queuestorage__
