@@ -26,4 +26,9 @@ public class FileUploadController {
             return ResponseEntity.status(500).body("Erro ao fazer upload do arquivo");
         }
     }
+    
+    @GetMapping("/list")
+    public String listBlobs() {
+        return storageService.listBlobs();
+    }
 }
