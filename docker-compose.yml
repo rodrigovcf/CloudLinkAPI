@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: azurite
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    volumes:
+      - azurite_data:/data
+
+  api:
+    build: .
+    container_name: cloudlink-api
+    ports:
+      - "9090:8080"
+    depends_on:
+      - azurite
+    environment:
+      AZURE_STORAGE_CONNECTION_STRING: "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:10001/devstoreaccount1;TableEndpoint=http://127.0.0.1:10002/devstoreaccount1;"
+      AZURE_STORAGE_CONTAINER_NAME: "meu-container"
+    command: ["java", "-Xmx512m", "-Xms512m", "-XX:MaxMetaspaceSize=256m", "-XX:ReservedCodeCacheSize=128m", "-XX:ThreadStackSize=512k", "-jar", "/app/app.jar"]
+
+volumes:
+  azurite_data:
