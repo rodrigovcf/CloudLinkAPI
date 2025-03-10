@@ -65,7 +65,7 @@ Para criar um container chamado **meu-container**, execute:
 python scripts/create_container.py
 ```
 
-### 5. Listar Containers Existentes
+### 5. Listar Containers Existentes no Azurite
 Para verificar se o container foi criado corretamente, execute:
 
 ```sh
